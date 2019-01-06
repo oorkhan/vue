@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Bulma!</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <script src="js/vue.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="section">
+        <div id="root">
+          <message
+            title="hello world"
+            body="Lorem ipsum dolor sit amet"
+          ></message>
+          <message
+            title="hello world 222"
+            body="Lorem ipsum dolor sit amet 2222"
+          ></message>
+          <div id="components-demo"><button-counter></button-counter></div>
+        </div>
+      </section>
+      <div id="root02">
+        <button @click="modalIsVisible = true">Show modal</button>
+        <modal v-show="modalIsVisible" @close="modalIsVisible = false">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam,
+          saepe. Cupiditate, dolorum placeat! Itaque, nihil.
+        </modal>
+      </div>
+      <div id="root03">
+        <tabs>
+          <tab name="About us" :selected="true"> <h3>Content of the tab About us</h3> </tab>
+          <tab name="About culture"> <h3>Content of the tab culture</h3> </tab>
+          <tab name="About history"> <h3>Content of the tab history</h3> </tab>
+        </tabs>
+      </div>
+    </div>
+  </body>
+  <script src="js/main.js"></script>
+</html>

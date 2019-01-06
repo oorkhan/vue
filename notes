@@ -1,0 +1,44 @@
+VIEW
+<div id="root01">(1)
+    <h1>Product: {{ product }} (2)</h1>
+    <p>Description: {{ description }}</p>
+</div>
+
+JS
+
+let app01 = new Vue({
+  el: "#root01",(1)
+  data: { (2)
+    product: "Red Socks",
+    description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, non!"
+  }
+});
+
+1 создать див и соеденить его с обьектом вью 
+<div id="root01"> И let app01 = let app01 = new Vue({ el: "#root01",});
+2 создать в объекте вью проперти data и вывести их в вид
+-----------------------------------------------------------------------------------------------
+
+Соединяем атрибут с проперти из дата
+v-bind или сокращенно :
+VIEW
+<a :href="url"><img :src="image"/></a>  v-bind:anyAttribute соединяем атрибут с проперти из дата
+
+JS
+data: {
+    url: "https://excisionmerch.com/products/bass-canyon-midnight-socks",
+    image: "images/socks.jpg"
+}
+
+-----------------------------------------------------------------------------------------------
+Показываем и скрываем элеемент при прределенном условии
+v-if, i-else-if, i-else, v-show
+VIEW
+<span v-if="stock >10" class="tag is-primary">in stock</span> 
+<span v-else-if="stock <= 10 && stock >0" class="tag is-warning">Almost out of stock</span> 
+<span v-else class="tag is-danger">Out of stock</span> 
+
+JS
+data: {
+    stock: 10
+  }
