@@ -68,29 +68,43 @@
           <div class="column is-one-fifth">
             <div class="card">
               <div class="card-image is-flex isHorizontalCentered">
-                <figure class="image is-128x128">
+                <figure class="image is-4by5">
                   <a :href="url"><img :src="image"/></a>
                 </figure>
               </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4">
-                      Product: {{ product }}
-                      <span v-if="stock > 10" class="tag is-primary"
-                        >In stock</span
-                      >
-                      <span
-                        v-else-if="stock <= 10 && stock >0"
-                        class="tag is-warning"
-                        >Almost out of stock</span
-                      >
+                    <p class="title is-4">Product: {{ product }}<span v-if="stock > 10" class="tag is-primary">In stock</span>
+                      <span v-else-if="stock <= 10 && stock >0" class="tag is-warning">Almost out of stock</span>
                       <span v-else class="tag is-danger">Out of stock</span>
                       <span v-show="onSale" class="tag is-black">On Sale</span>
                     </p>
+                    <div class="detail">
+                      <ul>
+                          <li v-for="detail in details">{{detail}}</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="content">Description: {{ description }}</div>
+                <div class="content">
+                  <div class="product-desc">Description: {{ description }}</div>
+                  <div class="colors">Colors:
+                    <ul class="details-ul">
+                      <li class="details-li" v-for="variant in variants" v-bind:key="variant.variantId">
+                        <a href="#">{{variant.variantColor}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="sizes">Size:
+                      <ul class="details-ul">
+                        <li class="details-li" v-for="size in sizes">
+                          <a href="#">{{size}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+                
               </div>
             </div> <!--card end-->
           </div> <!--column end-->

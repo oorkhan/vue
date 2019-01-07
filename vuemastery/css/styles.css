@@ -1,3 +1,18 @@
 .isHorizontalCentered {
     justify-content: center;
 }
+.details-ul{ 
+    list-style: none !important; 
+    display:inline !important; 
+    margin-left: 0em !important;
+}
+.details-li{
+    display:inline-block !important;
+    margin-left: 5px !important;
+}
+.product-desc {
+    background-color: #f7f9fa;
+}
+.colors, .sizes,  .product-desc, .detail{
+    padding: 0 6px;
+}

@@ -13,6 +13,18 @@ let app01 = new Vue({
     url: "https://excisionmerch.com/products/bass-canyon-midnight-socks",
     image: "images/socks.jpg",
     stock: 10,
-    onSale: true
+    onSale: true,
+    details:['80 % cotton', '20 % polyester', 'for men'],
+    variants:[
+      {
+        variantId:1,
+        variantColor: 'blue'
+      },
+      {
+        variantId:2,
+        variantColor: 'green'
+      }
+    ],
+    sizes:['small', 'medium', 'large', 'XL']
   }
 });
