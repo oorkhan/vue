@@ -1,10 +1,14 @@
 .isHorizontalCentered {
     justify-content: center;
 }
+.is-v-center{
+    align-items: center;
+}
 .details-ul{ 
     list-style: none !important; 
     display:inline !important; 
     margin-left: 0em !important;
+    margin-top: 0em !important;
 }
 .details-li{
     display:inline-block !important;
@@ -15,4 +19,25 @@
 }
 .colors, .sizes,  .product-desc, .detail{
     padding: 0 6px;
+}
+.colors {
+    display: flex;
+    align-items: center;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+}
+.image {
+    width: 180px;
+    height: 300px;
+}
+.cart{
+    margin-top: 5px;
+}
+.color{
+    width: 20px;
+    height: 20px;
 }

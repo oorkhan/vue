@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vue mastery tuts</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous">
     <script src="lib/vue.js"></script>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -62,23 +64,31 @@
           </div>
         </div>
       </nav>
+
       <h2><a href="https://www.vuemastery.com/courses/intro-to-vue-js/vue-instance/"  target="_blank">01. The Vue Instance </a></h2>
       <div id="root01" class="level-left">
         <div class="columns">
           <div class="column is-one-fifth">
             <div class="card">
               <div class="card-image is-flex isHorizontalCentered">
-                <figure class="image is-4by5">
-                  <a :href="url"><img :src="image"/></a>
+                <figure class="image is-4by5 is-flex is-v-center">
+                  <a :href="url"><img class="image" :src="image"/></a>
                 </figure>
               </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4">Product: {{ product }}<span v-if="stock > 10" class="tag is-primary">In stock</span>
-                      <span v-else-if="stock <= 10 && stock >0" class="tag is-warning">Almost out of stock</span>
-                      <span v-else class="tag is-danger">Out of stock</span>
-                      <span v-show="onSale" class="tag is-black">On Sale</span>
+                    <p class="title is-4">Product: {{ product }}
+                      <div>
+                        <span v-if="stock > 10" class="tag is-primary">In stock</span>
+                        <span v-else-if="stock <= 10 && stock >0" class="tag is-warning">Almost out of stock</span>
+                        <span v-else class="tag is-danger">Out of stock</span>
+                        <span v-show="onSale" class="tag is-black">On Sale</span>                          
+                      </div>
+                      <div class="tags has-addons cart">
+                        <span class="tag is-large"><i class="fas fa-cart-arrow-down"></i></span>
+                        <span class="tag is-primary is-large">{{cart}}</span>
+                      </div>
                     </p>
                     <div class="detail">
                       <ul>
@@ -92,7 +102,8 @@
                   <div class="colors">Colors:
                     <ul class="details-ul">
                       <li class="details-li" v-for="variant in variants" v-bind:key="variant.variantId">
-                        <a href="#">{{variant.variantColor}}</a>
+                        <div class="color" :style="{backgroundColor: variant.variantColor}"
+                         @mouseover="changeImage(variant.variantImage)"></div>
                       </li>
                     </ul>
                   </div>
@@ -102,6 +113,9 @@
                           <a href="#">{{size}}</a>
                         </li>
                       </ul>
+                    </div>
+                    <div class="buttons">
+                      <button @click="addToCart" class="button is-success" :disabled="!inStock">Add to cart</button> 
                     </div>
                 </div>
                 
