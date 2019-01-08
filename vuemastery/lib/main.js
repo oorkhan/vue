@@ -3,41 +3,158 @@
 document.addEventListener("DOMContentLoaded", function() {
   console.log("Hello Bulma!");
 });
+Vue.component("product-details", {
+  props:{
+    details:{
+      type:Array,
+      required: true
+    }
+  },
+  template: `<div class="detail"> <ul><li v-for="detail in details">{{detail}}</li> </ul> </div>`,
+});
+
+Vue.component("product", {
+  props: {
+    premium: {
+      type: Boolean,
+      required: true
+    }
+  },
+  template: `
+    <div>
+      <div class="columns">
+          <div class="column is-one-fifth">
+            <div class="card product-card">
+              <div class="card-image is-flex isHorizontalCentered">
+                <figure class="image is-4by5 is-flex is-v-center">
+                  <a :href="url"><img class="image" :src="image"/></a>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Product: {{title}}<br>
+                    User is {{premium}}
+                      <div>
+                        <span v-if="inStock > 10" class="tag is-primary">In stock</span>
+                        <span v-else-if="inStock <= 10 && inStock >0" class="tag is-warning">Almost out of stock</span>
+                        <span v-else class="tag is-danger">Out of stock</span>
+                        <span v-show="onSale" class="tag is-black">On Sale</span>                          
+                      </div>
+                    </p>
+                    <product-details :details="details"></product-details>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="product-desc">Description: {{ description }}</div>
+                  <div class="colors">Colors:
+                    <ul class="details-ul">
+                      <li class="details-li" v-for="(variant, index) in variants" v-bind:key="variant.variantId">
+                        <div class="color" :style="{backgroundColor: variant.variantColor}"
+                         @mouseover="changeImage(index)"></div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="sizes">Size:
+                      <ul class="details-ul">
+                        <li class="details-li" v-for="size in sizes">
+                          <a href="#">{{size}}</a>
+                        </li>
+                      </ul>
+                      <p>Shipping: {{shipping}}</p>
+                    </div>
+                    <div class="buttons">
+                      <button @click="addToCart" class="button is-success" :disabled="!inStock">Add to cart</button>
+                      <button class="button is-primary" @click="removeProductFromCart">Remove</button> 
+                    </div>
+                </div>
+                
+              </div>
+            </div> <!--card end-->
+          </div> <!--column end-->
+        </div>
+    </div>
+  `,
+  data() {
+    return {
+      brand: "Armani",
+      product: "Socks",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, non!",
+      url: "https://excisionmerch.com/products/bass-canyon-midnight-socks",
+      selectedVariant: 0,
+      onSale: true,
+      details: ["80 % cotton", "20 % polyester", "for men"],
+      variants: [
+        {
+          variantId: 1,
+          variantColor: "blue",
+          variantImage: "images/socks.jpg",
+          variantQuantity: 0
+        },
+        {
+          variantId: 2,
+          variantColor: "green",
+          variantImage: "images/socks_blue.jpg",
+          variantQuantity: 10
+        }
+      ],
+      sizes: ["small", "medium", "large", "XL"]
+    };
+  },
+
+  methods: {
+    addToCart: function() {
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
+    },
+    changeImage(index) {
+      console.log(this.variants[this.selectedVariant].variantQuantity);
+      return (this.selectedVariant = index);
+    },
+    removeProductFromCart() {
+      this.$emit(
+        "remove-from-cart",
+        this.variants[this.selectedVariant].variantId
+      );
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + " " + this.product;
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage;
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity;
+    },
+    shipping() {
+      if (this.premium) {
+        return "Free";
+      } else {
+        return 3.99;
+      }
+    }
+  }
+});
+
 
 let app01 = new Vue({
   el: "#root01",
   data: {
-    product: "Socks",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, non!",
-    url: "https://excisionmerch.com/products/bass-canyon-midnight-socks",
-    image: "images/socks.jpg",
-    stock: 10,
-    inStock: true,
-    onSale: true,
-    details: ["80 % cotton", "20 % polyester", "for men"],
-    variants: [
-      {
-        variantId: 1,
-        variantColor: "blue",
-        variantImage: "images/socks.jpg"
-      },
-      {
-        variantId: 2,
-        variantColor: "green",
-        variantImage: "images/socks_blue.jpg"
-      }
-    ],
-    sizes: ["small", "medium", "large", "XL"],
-    cart: 0
+    premium: true,
+    cart: []
   },
   methods: {
-    addToCart: function() {
-      this.cart += 1;
+    updateCart: function(id) {
+      this.cart.push(id);
     },
-    changeImage(variantImage){
-      this.image = variantImage;
-      console.log(this.variantImage);
+    removeItem(id){
+      for(var i = this.cart.length - 1; i >=0; i--){
+        if(this.cart[i]===id){
+          this.cart.splice(i,1);
+        }
+      }
     }
   }
 });
