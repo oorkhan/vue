@@ -1,3 +1,9 @@
+form{
+    margin-top:5px;
+}
+input, textarea{
+    margin-bottom: 5px;
+}
 .isHorizontalCentered {
     justify-content: center;
 }

@@ -42,3 +42,37 @@ JS
 data: {
     stock: 10
   }
+-----------------------------------------------------------------------------------------------
+Components
+VIEW
+<product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeItem"></product>
+Чтобы передать переменные от родителя к компоненту используется props
+Vue.component("product", {
+  props: {
+    premium: { название переменной
+      type: Boolean, тип
+      required: true 
+    }
+  },
+
+  @add-to-cart="updateCart" прописываем событие которое является методом внутри компонента, этод метод передает родительскому методу updateCart 
+  параметры 
+  метод компонента addToCart: function() {
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
+    }
+метод родителя updateCart: function(id) {
+      this.cart.push(id);
+    }
+-----------------------------------------------------------------------------------------------
+Можно создавать двустороннюю связь между темплатеом и датай:v-model="" 
+ <input type="radio" name="answer" value="yes" v-model="recomended">
+
+ 
+ 
+
+ <form @submit.prevent="onSubmit"> создали евент @submit.prevent , prevent = preventDefault
+ евент ссылается на метод в компоненте onSubmit который производит this.$emit("review-submited", productReview);
+ productReview это обьект
+ в компоненте <product> мы поместили компонент <product-review @review-submited="addReview"></product-review>
+ с евентом @review-submited="addReview", 
+ метод addReview получает от onSubmit обьект productReview и помещает его в массив
